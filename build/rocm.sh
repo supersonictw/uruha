@@ -3,7 +3,7 @@
 set -e
 
 # install script dependencies
-apt-get -qq install build-essential cmake repo git
+apt-get -qq install build-essential cmake repo git git-lfs
 
 # repo sync
 repo init -u https://github.com/RadeonOpenCompute/ROCm.git -b roc-5.7.x
