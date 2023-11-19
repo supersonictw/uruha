@@ -2,13 +2,14 @@ FROM debian:trixie-slim
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
-    python-is-python3 python3-pip python3-venv pipx \
+    python-is-python3 python3-pip python3-venv \
     rocm-cmake rocm-device-libs rocm-smi rocminfo \
     librccl1 libamdhip64-dev
 
-RUN python3 -m pipx ensurepath
-RUN pipx install ipython
+RUN python -m venv /root/.uruha_python
+RUN /root/.uruha_python/bin/pip install ipython
 
-WORKDIR /root
+RUN mkdir -p /root/place
+WORKDIR /root/place
 
-CMD ["/usr/bin/env ipython"]
+CMD ["/root/.uruha_python/bin/ipython"]
