@@ -7,12 +7,18 @@ if [ "$EUID" != 0 ]; then
     SUDO='sudo'
 fi
 
-$SUDO wget -O rootfs.tar.gz http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.1-base-amd64.tar.gz
+export URUHA_WORK_DIRECTORY=$(pwd)
 
-$SUDO mkdir rootfs && cd rootfs
-$SUDO tar -zxvf ../rootfs.tar.gz && rm ../rootfs.tar.gz
+$SUDO wget -O $URUHA_WORK_DIRECTORY/rootfs.tar.gz http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.1-base-amd64.tar.gz
 
-$SUDO cp ../.rootfs_setup.sh . && chmod +x .rootfs_setup.sh
-$SUDO chroot . /bin/bash ./.rootfs_setup.sh
+$SUDO mkdir $URUHA_WORK_DIRECTORY/rootfs && cd $URUHA_WORK_DIRECTORY/rootfs
+$SUDO tar -zxvf $URUHA_WORK_DIRECTORY/rootfs.tar.gz
+rm $URUHA_WORK_DIRECTORY/rootfs
 
-$SUDO rm .rootfs_setup.sh
+$SUDO cp $URUHA_WORK_DIRECTORY/.rootfs_setup.sh $URUHA_WORK_DIRECTORY/rootfs/setup.sh
+chmod +x $URUHA_WORK_DIRECTORY/rootfs/setup.sh
+
+$SUDO mount --bind /etc/resolv.conf $URUHA_WORK_DIRECTORY/rootfs/etc/resolv.conf
+$SUDO chroot $URUHA_WORK_DIRECTORY/rootfs /bin/bash /setup.sh
+
+$SUDO rm $URUHA_WORK_DIRECTORY/rootfs/setup.sh

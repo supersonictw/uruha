@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo "nameserver 208.67.222.222" | tee /etc/resolv.conf
-
 apt-get update
 apt-get install -y --no-install-recommends ca-certificates wget gpg
 
@@ -31,5 +29,3 @@ if [ -f /root/.uruha_python/bin/activate ]; then
     . /root/.uruha_python/bin/activate
 fi
 EOF
-
-rm /etc/resolv.conf
