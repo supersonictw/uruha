@@ -1,7 +1,8 @@
 #!/bin/sh
 
 apt-get update
-apt-get install -y --no-install-recommends ca-certificates wget gpg
+apt-get install -y --no-install-recommends \
+    gpg wget ca-certificates
 
 mkdir --parents --mode=0755 /etc/apt/keyrings
 wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | tee /etc/apt/keyrings/rocm.gpg > /dev/null
@@ -12,10 +13,10 @@ echo 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | tee /etc/
 apt update
 
 apt install -y --no-install-recommends \
-python3 python3-pip python3-venv python-is-python3 \
-rocm-hip-libraries rocm-libs miopen-hip-dev hipfft-dev rocrand-dev hipsparse-dev hipsolver-dev \
-rccl-dev rccl hip-dev rocfft-dev roctracer-dev hipblas-dev rocm-device-libs \
-rocsolver-dev rocblas-dev
+    python3 python3-pip python3-venv python-is-python3 \
+    rocm-hip-libraries rocm-libs miopen-hip-dev hipfft-dev rocrand-dev hipsparse-dev hipsolver-dev \
+    rccl-dev rccl hip-dev rocfft-dev roctracer-dev hipblas-dev rocm-device-libs \
+    rocsolver-dev rocblas-dev
 
 python -m venv /root/.uruha_python
 /root/.uruha_python/bin/pip install ipython
