@@ -1,7 +1,7 @@
 FROM ubuntu:focal
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends ca-certificates
+RUN apt-get install -y --no-install-recommends ca-certificates wget gpg
 
 RUN mkdir --parents --mode=0755 /etc/apt/keyrings
 RUN wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | tee /etc/apt/keyrings/rocm.gpg
