@@ -2,6 +2,13 @@
 
 set -e
 
+if [ ! -f "/tmp/uruha.lock" ]; then
+    touch /tmp/uruha.lock
+else
+    echo "/tmp/uruha.lock exists, exits for prevent unexpected mounting."
+    exit 1
+fi
+
 SUDO=''
 if [ "$EUID" != 0 ]; then
     SUDO='sudo'
@@ -20,3 +27,5 @@ for name in tmp proc sys dev/pts dev etc/resolv.conf
 do
     $SUDO umount $URUHA_WORK_DIRECTORY/rootfs/$name
 done
+
+rm /tmp/uruha.lock
