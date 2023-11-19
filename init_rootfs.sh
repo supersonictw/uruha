@@ -22,7 +22,7 @@ $SUDO tar -zxvf $URUHA_WORK_DIRECTORY/rootfs.tar.gz -C $URUHA_WORK_DIRECTORY/roo
 $SUDO rm $URUHA_WORK_DIRECTORY/rootfs.tar.gz
 
 $SUDO cp $URUHA_WORK_DIRECTORY/.rootfs_setup.sh $URUHA_WORK_DIRECTORY/rootfs/setup.sh
-chmod +x $URUHA_WORK_DIRECTORY/rootfs/setup.sh
+$SUDO chmod +x $URUHA_WORK_DIRECTORY/rootfs/setup.sh
 
 $SUDO mount --bind /etc/resolv.conf $URUHA_WORK_DIRECTORY/rootfs/etc/resolv.conf
 $SUDO chroot $URUHA_WORK_DIRECTORY/rootfs /bin/bash /setup.sh
