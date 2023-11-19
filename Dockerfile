@@ -1,10 +1,13 @@
-FROM debian:trixie-slim
+FROM ubuntu:focal
+
+RUN mkdir --parents --mode=0755 /etc/apt/keyrings
+RUN wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | tee /etc/apt/keyrings/rocm.gpg
+
+RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/debian focal main" | tee /etc/apt/sources.list.d/rocm.list
+RUN echo -e 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | tee /etc/apt/preferences.d/rocm-pin-600
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
-    python-is-python3 python3-pip python3-venv \
-    rocm-cmake rocm-device-libs rocm-smi rocminfo \
-    librccl1 libamdhip64-dev
+RUN apt-get install rocm-hip-libraries
 
 RUN python -m venv /root/.uruha_python
 RUN /root/.uruha_python/bin/pip install ipython
