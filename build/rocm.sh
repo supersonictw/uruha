@@ -2,10 +2,8 @@
 
 set -e
 
-alias sudo=""
-
 # Install script dependencies
-apt-get -qq install build-essential cmake repo git git-lfs python3-pip
+apt-get -qq install build-essential cmake repo git git-lfs python3-pip sudo
 
 # Repo sync
 repo init -u https://github.com/RadeonOpenCompute/ROCm.git -b roc-5.7.x
