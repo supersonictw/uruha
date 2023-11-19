@@ -2,6 +2,8 @@
 
 set -e
 
+export URUHA_WORK_DIRECTORY=$(pwd)
+
 if [ ! -f "/tmp/uruha.lock" ]; then
     touch /tmp/uruha.lock
 else
@@ -13,8 +15,6 @@ SUDO=''
 if [ "$EUID" != 0 ]; then
     SUDO='sudo'
 fi
-
-export URUHA_WORK_DIRECTORY=$(pwd)
 
 for name in tmp proc sys dev dev/pts etc/resolv.conf
 do

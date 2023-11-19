@@ -1,13 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
+
+export URUHA_WORK_DIRECTORY=$(pwd)
+
+if [ -d "$URUHA_WORK_DIRECTORY/rootfs" ]; then
+    echo "rootfs already exists, exits for preventing from unexpected initiating."
+    exit 1
+fi
 
 SUDO=''
 if [ "$EUID" != 0 ]; then
     SUDO='sudo'
 fi
-
-export URUHA_WORK_DIRECTORY=$(pwd)
 
 $SUDO wget -O $URUHA_WORK_DIRECTORY/rootfs.tar.gz http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.1-base-amd64.tar.gz
 
