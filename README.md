@@ -21,6 +21,8 @@ Yep, only two commands, the script will download the rootfs and install ROCm sui
 bash activate.sh
 ```
 
-The script will mount/chroot/umount the rootfs automatically, the default shell is `ipython` with `python 3.8`, you can use ["pyenv"](https://github.com/pyenv/pyenv) or something like to switch your python version.
+The script will mount/chroot/umount the rootfs automatically.
 
-Default to define `HSA_OVERRIDE_GFX_VERSION` = `10.3.0` in `/root/.bashrc` to support RX6XXX series RDNA2 GPUs.
+The default shell is `ipython` with `python 3.8`, you can use ["pyenv"](https://github.com/pyenv/pyenv) or something like to switch your python version.
+
+The script will default to define `HSA_OVERRIDE_GFX_VERSION=10.3.0` in `/root/.bashrc` to support RX6XXX series RDNA2 GPUs.
