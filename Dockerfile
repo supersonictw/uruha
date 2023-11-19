@@ -12,4 +12,4 @@ RUN /root/.uruha_python/bin/pip install ipython
 RUN mkdir -p /root/place
 WORKDIR /root/place
 
-CMD ["/root/.uruha_python/bin/ipython"]
+CMD ["sh", "-c", ". /root/.uruha_python/bin/activate && ipython"]
