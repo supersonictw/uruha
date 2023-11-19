@@ -5,7 +5,7 @@ set -e
 if [ ! -f "/tmp/uruha.lock" ]; then
     touch /tmp/uruha.lock
 else
-    echo "/tmp/uruha.lock exists, exits for prevent unexpected mounting."
+    echo "/tmp/uruha.lock already exists, exits for preventing from unexpected mounting."
     exit 1
 fi
 
