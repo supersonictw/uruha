@@ -10,7 +10,7 @@ RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.rad
 RUN echo "Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600" | tee /etc/apt/preferences.d/rocm-pin-600
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends rocm-hip-libraries
+RUN apt-get install -y --no-install-recommends rocm-hip-libraries python3 python3-pip python3-venv python-is-python3
 
 RUN python -m venv /root/.uruha_python
 RUN /root/.uruha_python/bin/pip install ipython
