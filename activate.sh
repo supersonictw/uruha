@@ -21,7 +21,7 @@ do
     $SUDO mount --bind /$name $URUHA_WORK_DIRECTORY/rootfs/$name
 done
 
-$SUDO chroot rootfs /root/.uruha_python/bin/ipython
+$SUDO chroot rootfs /bin/sh -c "cd /root && bash"
 
 for name in tmp proc sys dev/pts dev etc/resolv.conf
 do
