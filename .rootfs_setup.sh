@@ -25,6 +25,7 @@ tee -a /root/.bashrc <<'EOF'
 export HSA_OVERRIDE_GFX_VERSION="10.3.0"
 if [ -d /opt/rocm ]; then
     ROCM_PATH=/opt/rocm
+    PATH=$ROCM_PATH/bin:$PATH
 fi
 if [ -f /root/.uruha_python/bin/activate ]; then
     . /root/.uruha_python/bin/activate
