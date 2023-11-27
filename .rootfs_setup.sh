@@ -13,21 +13,19 @@ echo 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | tee /etc/
 apt update
 
 apt install -y --no-install-recommends \
-    python3 python3-pip python3-venv python-is-python3 \
+    build-essential git-core libbz2-dev libffi-dev libreadline-dev libsqlite3-dev tk-dev liblzma-dev python3 \
     rocm-hip-libraries rocm-libs miopen-hip-dev hipfft-dev rocrand-dev hipsparse-dev hipsolver-dev \
     rccl-dev rccl hip-dev rocfft-dev roctracer-dev hipblas-dev rocm-device-libs \
     rocsolver-dev rocblas-dev
 
-python -m venv /root/.uruha_python
-/root/.uruha_python/bin/pip install ipython
+wget -O - https://pyenv.run | bash
 
 tee -a /root/.bashrc <<'EOF'
 export HSA_OVERRIDE_GFX_VERSION="10.3.0"
-if [ -d /opt/rocm ]; then
-    ROCM_PATH=/opt/rocm
-    PATH=$ROCM_PATH/bin:$PATH
-fi
-if [ -f /root/.uruha_python/bin/activate ]; then
-    . /root/.uruha_python/bin/activate
-fi
+export ROCM_PATH=/opt/rocm
+export PATH=$ROCM_PATH/bin:$PATH
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 EOF
