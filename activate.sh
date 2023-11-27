@@ -33,7 +33,7 @@ URUHA_UMOUNT() {
 }
 
 URUHA_CHROOT() {
-    $SUDO chroot rootfs /bin/sh -c "cd /root && bash"
+    $SUDO chroot rootfs /bin/sh -c "cd /root && bash" || true
 }
 
 case "$1" in
