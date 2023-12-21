@@ -2,7 +2,7 @@
 
 apt-get update
 apt-get install -y --no-install-recommends \
-    gpg wget ca-certificates
+    curl ca-certificates gpg wget
 
 mkdir --parents --mode=0755 /etc/apt/keyrings
 wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | tee /etc/apt/keyrings/rocm.gpg > /dev/null
