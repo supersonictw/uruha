@@ -2,7 +2,10 @@
 
 apt-get update
 apt-get install -y --no-install-recommends \
-    curl ca-certificates gpg wget
+    ca-certificates gpg wget \
+    curl libssl-dev libncurses5-dev libsqlite3-dev \
+    libreadline-dev libtk8.6 libgdm-dev libdb4o-cil-dev libpcap-dev \
+    libbz2-dev libreadline-dev libssl-dev
 
 mkdir --parents --mode=0755 /etc/apt/keyrings
 wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | tee /etc/apt/keyrings/rocm.gpg > /dev/null
