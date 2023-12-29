@@ -9,6 +9,13 @@ if [ -d "$URUHA_WORK_DIRECTORY/rootfs" ]; then
     exit 1
 fi
 
+if [ ! -f "/tmp/uruha.lock" ]; then
+    touch /tmp/uruha.lock
+else
+    echo "/tmp/uruha.lock already exists, exits for preventing from unexpected mounting."
+    exit 1
+fi
+
 SUDO=''
 if [ "$EUID" != 0 ]; then
     SUDO='sudo'
@@ -24,7 +31,11 @@ $SUDO rm $URUHA_WORK_DIRECTORY/rootfs.tar.gz
 $SUDO cp $URUHA_WORK_DIRECTORY/.rootfs_setup.sh $URUHA_WORK_DIRECTORY/rootfs/setup.sh
 $SUDO chmod +x $URUHA_WORK_DIRECTORY/rootfs/setup.sh
 
-$SUDO mount --bind /etc/resolv.conf $URUHA_WORK_DIRECTORY/rootfs/etc/resolv.conf
+for name in tmp proc sys dev dev/pts etc/resolv.conf
+do
+    $SUDO mount --bind /$name $URUHA_WORK_DIRECTORY/rootfs/$name
+done
 $SUDO chroot $URUHA_WORK_DIRECTORY/rootfs /bin/bash /setup.sh
 
 $SUDO rm $URUHA_WORK_DIRECTORY/rootfs/setup.sh
+rm /tmp/uruha.lock
