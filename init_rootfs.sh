@@ -35,7 +35,13 @@ for name in tmp proc sys dev dev/pts etc/resolv.conf
 do
     $SUDO mount --bind /$name $URUHA_WORK_DIRECTORY/rootfs/$name
 done
+
 $SUDO chroot $URUHA_WORK_DIRECTORY/rootfs /bin/bash /setup.sh
+
+for name in etc/resolv.conf dev/pts dev sys proc tmp
+do
+    $SUDO umount $URUHA_WORK_DIRECTORY/rootfs/$name
+done
 
 $SUDO rm $URUHA_WORK_DIRECTORY/rootfs/setup.sh
 rm /tmp/uruha.lock

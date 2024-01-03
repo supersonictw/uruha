@@ -24,7 +24,7 @@ URUHA_MOUNT() {
 }
 
 URUHA_UMOUNT() {
-    for name in tmp proc sys dev/pts dev etc/resolv.conf
+    for name in etc/resolv.conf dev/pts dev sys proc tmp
     do
         $SUDO umount $URUHA_WORK_DIRECTORY/rootfs/$name
     done

@@ -1,25 +1,19 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+
 apt-get update
 apt-get install -y --no-install-recommends \
-    ca-certificates gpg wget \
-    curl libssl-dev libncurses5-dev libsqlite3-dev \
-    libreadline-dev libtk8.6 libgdm-dev libdb4o-cil-dev libpcap-dev \
-    libbz2-dev libreadline-dev libssl-dev
+    build-essential ca-certificates curl git-core gpg wget python3 tk-dev \
+    libncurses5-dev libsqlite3-dev libbz2-dev \
+    libffi-dev liblzma-dev libreadline-dev \
+    libtk8.6 libgdm-dev libdb4o-cil-dev libpcap-dev libssl-dev 
 
-mkdir --parents --mode=0755 /etc/apt/keyrings
-wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | tee /etc/apt/keyrings/rocm.gpg > /dev/null
+wget -O /tmp/amdgpu-install.deb https://repo.radeon.com/amdgpu-install/23.30.2/ubuntu/jammy/amdgpu-install_5.7.50702-1_all.deb
 
-echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/5.7.2 jammy main' | tee /etc/apt/sources.list.d/rocm.list
-echo 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | tee /etc/apt/preferences.d/rocm-pin-600
-
-apt update
-
-apt install -y --no-install-recommends \
-    build-essential git-core libbz2-dev libffi-dev libreadline-dev libsqlite3-dev tk-dev liblzma-dev python3 \
-    rocm-hip-libraries rocm-libs miopen-hip-dev hipfft-dev rocrand-dev hipsparse-dev hipsolver-dev \
-    rccl-dev rccl hip-dev rocfft-dev roctracer-dev hipblas-dev rocm-device-libs \
-    rocsolver-dev rocblas-dev
+apt-get install -y -f \
+    /tmp/amdgpu-install.deb &&
+    amdgpu-install -y -no-dkms --no-32
 
 wget -O - https://pyenv.run | bash
 
