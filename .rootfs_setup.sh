@@ -13,7 +13,7 @@ wget -O /tmp/amdgpu-install.deb https://repo.radeon.com/amdgpu-install/23.30.2/u
 
 apt-get install -y -f \
     /tmp/amdgpu-install.deb &&
-    amdgpu-install -y -no-dkms --no-32
+    amdgpu-install -y --no-dkms --no-32
 
 wget -O - https://pyenv.run | bash
 
