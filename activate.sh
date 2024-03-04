@@ -2,11 +2,11 @@
 
 set -e
 
-export URUHA_WORK_DIRECTORY=$(pwd)
+export URUHA_WORK_DIRECTORY=$PWD
 
-SUDO=''
+SUDO=""
 if [ "$EUID" != 0 ]; then
-    SUDO='sudo'
+    SUDO="sudo"
 fi
 
 URUHA_MOUNT() {
@@ -19,14 +19,14 @@ URUHA_MOUNT() {
 
     for name in tmp proc sys dev dev/pts etc/resolv.conf
     do
-        $SUDO mount --bind /$name $URUHA_WORK_DIRECTORY/rootfs/$name
+        $SUDO mount --bind /$name "$URUHA_WORK_DIRECTORY/rootfs/$name"
     done
 }
 
 URUHA_UMOUNT() {
     for name in etc/resolv.conf dev/pts dev sys proc tmp
     do
-        $SUDO umount $URUHA_WORK_DIRECTORY/rootfs/$name
+        $SUDO umount "$URUHA_WORK_DIRECTORY/rootfs/$name"
     done
 
     rm /tmp/uruha.lock
