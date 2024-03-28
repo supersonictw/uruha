@@ -10,7 +10,7 @@ For me, I chosen a drive mounted directory, because ROCm will cost more than 16G
 
 ```sh
 git clone https://github.com/supersonictw/uruha.git . # Checkout the repository
-bash init_rootfs.sh # Play the magic
+sh init_rootfs.sh # Play the magic
 ```
 
 Yep, only two commands, the script will download the rootfs and install ROCm suites automatically.
@@ -18,7 +18,7 @@ Yep, only two commands, the script will download the rootfs and install ROCm sui
 ## Usage
 
 ```sh
-bash activate.sh
+sh activate.sh
 ```
 
 The script will mount/chroot/umount the rootfs automatically.

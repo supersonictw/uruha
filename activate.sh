@@ -1,49 +1,21 @@
-#!/bin/bash
+#!/bin/sh
+# Uruha
+# The chroot machine learning environment for amdgpu with ROCm.
+# (c) 2022 SuperSonic (https://github.com/supersonictw)
 
-set -e
-
-export URUHA_WORK_DIRECTORY=$PWD
-
-SUDO=""
-if [ "$EUID" != 0 ]; then
-    SUDO="sudo"
-fi
-
-URUHA_MOUNT() {
-    if [ ! -f "/tmp/uruha.lock" ]; then
-        touch /tmp/uruha.lock
-    else
-        echo "/tmp/uruha.lock already exists, exits for preventing from unexpected mounting."
-        exit 1
-    fi
-
-    for name in tmp proc sys dev dev/pts etc/resolv.conf
-    do
-        $SUDO mount --bind /$name "$URUHA_WORK_DIRECTORY/rootfs/$name"
-    done
-}
-
-URUHA_UMOUNT() {
-    for name in etc/resolv.conf dev/pts dev sys proc tmp
-    do
-        $SUDO umount "$URUHA_WORK_DIRECTORY/rootfs/$name"
-    done
-
-    rm /tmp/uruha.lock
-}
-
-URUHA_CHROOT() {
-    $SUDO chroot rootfs /bin/sh -c "cd /root && bash" || true
-}
+. "$PWD/.trait.sh"
 
 case "$1" in
-    "") 
-        URUHA_MOUNT
-        URUHA_CHROOT
-        URUHA_UMOUNT
-        ;;
-    umount)
-        URUHA_UMOUNT
-        ;;
-    *) echo "$1: unknown task."
+"")
+    URUHA_LOCK &&
+        URUHA_MOUNT &&
+        URUHA_CHROOT "/bin/sh" "-c" "cd /root && bash" &&
+        URUHA_UMOUNT &&
+        URUHA_UNLOCK
+    ;;
+umount)
+    URUHA_UMOUNT &&
+        URUHA_UNLOCK
+    ;;
+*) echo "$1: unknown task." ;;
 esac
