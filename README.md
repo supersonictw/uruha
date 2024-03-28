@@ -18,7 +18,7 @@ Yep, only two commands, the script will download the rootfs and install ROCm sui
 ## Usage
 
 ```sh
-sh activate.sh
+source activate.sh
 ```
 
 The script will mount/chroot/umount the rootfs automatically.
