@@ -4,7 +4,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
 apt-get install -y --no-install-recommends \
-    build-essential ca-certificates curl git-core gpg wget python3 tk-dev \
+    build-essential ca-certificates curl git-core gpg wget python3 tk-dev dropbear \
     libncurses5-dev libsqlite3-dev libbz2-dev \
     libffi-dev liblzma-dev libreadline-dev \
     libtk8.6 libgdm-dev libdb4o-cil-dev libpcap-dev libssl-dev 
@@ -19,6 +19,7 @@ wget -O - https://pyenv.run | bash
 
 tee -a /root/.bashrc <<'EOF'
 alias sudo=""
+alias run-sshd="dropbear -REFp 2024"
 alias amdgpu-install="amdgpu-install --no-dkms --no-32"
 
 export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u [uruha_chroot]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
