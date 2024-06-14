@@ -18,6 +18,9 @@ apt-get install -y -f \
 wget -O - https://pyenv.run | bash
 
 tee -a /root/.bashrc <<'EOF'
+alias sudo=""
+alias amdgpu-install="amdgpu-install --no-dkms --no-32"
+
 export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u [uruha_chroot]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 export HSA_OVERRIDE_GFX_VERSION="10.3.0"
