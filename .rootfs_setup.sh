@@ -9,7 +9,7 @@ apt-get install -y --no-install-recommends \
     libffi-dev liblzma-dev libreadline-dev \
     libtk8.6 libgdm-dev libdb4o-cil-dev libpcap-dev libssl-dev 
 
-wget -O /tmp/amdgpu-install.deb https://repo.radeon.com/amdgpu-install/23.30.2/ubuntu/jammy/amdgpu-install_5.7.50702-1_all.deb
+wget -O /tmp/amdgpu-install.deb https://repo.radeon.com/amdgpu-install/6.1.2/ubuntu/jammy/amdgpu-install_6.1.60102-1_all.deb
 
 apt-get install -y -f \
     /tmp/amdgpu-install.deb &&
